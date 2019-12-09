@@ -15,8 +15,6 @@ from utils import send_text_message
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
-import os
-
 def find_graph(word):
     #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
