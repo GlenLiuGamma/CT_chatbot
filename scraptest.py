@@ -3,8 +3,8 @@ import urllib.request
 from bs4 import BeautifulSoup
 import os
 
-def find_graph():
-    word = input('Input key word: ')
+def find_graph(word):
+    #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
     photolimit = 3
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -14,7 +14,6 @@ def find_graph():
     folder_path ='./photo/'
 
     if (os.path.exists(folder_path) == False): #判斷資料夾是否存在
-
         os.makedirs(folder_path) #Create folder
     for index , item in enumerate (items):
 
@@ -25,5 +24,5 @@ def find_graph():
                 file.write(html.content)
                 file.flush()
             file.close() #close file
-            print('第 %d 張' % (index + 1))
+            #print('第 %d 張' % (index + 1))
     print('Done')

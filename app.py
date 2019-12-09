@@ -5,10 +5,14 @@ from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 
 from fsm import TocMachine
 from utils import send_text_message
+from scraptest import find_graph
+"""
+line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='圖片網址', preview_image_url='圖片網址'))
+"""
 
 load_dotenv()
 
@@ -71,10 +75,13 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-
+        """
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
+        """
+        find_graph(event.message.text)
+        line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='/photo/1.png', preview_image_url='/photo/1.png'))
 
     return "OK"
 
