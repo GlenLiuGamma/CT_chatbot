@@ -2,7 +2,6 @@ import requests
 import urllib.request
 from bs4 import BeautifulSoup
 import os
-
 def find_graph(word):
     #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
@@ -24,5 +23,8 @@ def find_graph(word):
                 file.write(html.content)
                 file.flush()
             file.close() #close file
-            #print('第 %d 張' % (index + 1))
     print('Done')
+
+search = input('Enter word: ')
+find_graph(search)
+
