@@ -1,4 +1,4 @@
-#import os
+import os
 import sys
 
 from flask import Flask, jsonify, request, abort, send_file
@@ -8,7 +8,13 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from fsm import TocMachine
 from utils import send_text_message
-from scraptest import find_graph
+import requests
+import urllib.request
+from bs4 import BeautifulSoup
+#scrap
+
+#endscrap
+
 
 load_dotenv()
 
