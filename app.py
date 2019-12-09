@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from fsm import TocMachine
 from utils import send_text_message
-#from scraptest import find_graph
+from scraptest import find_graph
 
 load_dotenv()
 
