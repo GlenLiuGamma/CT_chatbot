@@ -10,12 +10,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSend
 from fsm import TocMachine
 from utils import send_text_message
 from scraptest import find_graph
-"""
-line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='圖片網址', preview_image_url='圖片網址'))
-"""
 
 load_dotenv()
-
 
 machine = TocMachine(
     states=["user", "state1", "state2"],
@@ -75,13 +71,10 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        
+
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
-        
-        #find_graph(event.message.text)
-        #line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='/photo/1.png', preview_image_url='/photo/1.png'))
 
     return "OK"
 
@@ -123,5 +116,5 @@ def show_fsm():
 
 
 if __name__ == "__main__":
-    port = os.environ['PORT']
+    port = os.environ.get("PORT", 8000)
     app.run(host="0.0.0.0", port=port, debug=True)
