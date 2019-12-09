@@ -75,13 +75,13 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        """
+        
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
-        """
-        find_graph(event.message.text)
-        line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='/photo/1.png', preview_image_url='/photo/1.png'))
+        
+        #find_graph(event.message.text)
+        #line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url='/photo/1.png', preview_image_url='/photo/1.png'))
 
     return "OK"
 
