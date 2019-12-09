@@ -100,7 +100,7 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        image_url = '/photo/1.png'
+        image_url = 'https://developers.line.biz/media/messaging-api/messages/image-full-04fbba55.png'
         line_bot_api.push_message(event.reply_token, ImageSendMessage(original_content_url=image_url, preview_image_url=image_url))
         """
         line_bot_api.reply_message(
