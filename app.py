@@ -11,13 +11,14 @@ from utils import send_text_message
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
+from upload_image import upload_image
 
-
-
-
-
+import requests
+import urllib.request
+from bs4 import BeautifulSoup
+from upload_image import upload_image
+#scrap
 def find_graph(word):
-    #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
     photolimit = 3
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -37,7 +38,10 @@ def find_graph(word):
                 file.write(html.content)
                 file.flush()
             file.close() #close file
+        
+    link = upload_image(img_name)    
     print('Done')
+    return link
 #endscrap
 
 
@@ -106,20 +110,13 @@ def callback():
             event.reply_token, TextSendMessage(text=event.message.text)
         )
         """
-        find_graph(event.message.text)
-
-
-        if event.message.text == "隨便來張正妹圖片":
-        image = requests.get(API_Get_Image)
-        url = image.json().get('Url')
+        url = find_graph(event.message.text)
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
-        return 0
-
 
     return "OK"
 
