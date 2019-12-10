@@ -8,12 +8,10 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from fsm import TocMachine
 from utils import send_text_message
-
-#scrap
-"""
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
+
 def find_graph(word):
     #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
@@ -36,7 +34,6 @@ def find_graph(word):
                 file.flush()
             file.close() #close file
     print('Done')
-    """
 #endscrap
 
 
@@ -100,13 +97,12 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        image_url = 'https://developers.line.biz/media/messaging-api/messages/image-full-04fbba55.png'
-        line_bot_api.push_message(event.reply_token, ImageSendMessage(original_content_url=image_url, preview_image_url=image_url))
-        """
+        #image_url = '/photo/1.png'
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
-        """
+        find_graph(event.message.text)
+        
 
     return "OK"
 
