@@ -12,6 +12,10 @@ import requests
 import urllib.request
 from bs4 import BeautifulSoup
 
+
+
+
+
 def find_graph(word):
     #word = input('Input key word: ')
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
@@ -97,12 +101,25 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        #image_url = '/photo/1.png'
+        """
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=event.message.text)
         )
+        """
         find_graph(event.message.text)
-        
+
+
+        if event.message.text == "隨便來張正妹圖片":
+        image = requests.get(API_Get_Image)
+        url = image.json().get('Url')
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(
+            event.reply_token, image_message)
+        return 0
+
 
     return "OK"
 
@@ -141,7 +158,6 @@ def webhook_handler():
 def show_fsm():
     machine.get_graph().draw("fsm.png", prog="dot", format="png")
     return send_file("fsm.png", mimetype="image/png")
-
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
