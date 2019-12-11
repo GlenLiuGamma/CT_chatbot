@@ -1,10 +1,11 @@
 from transitions.extensions import GraphMachine
-from utils import send_text_message
+from utils import send_text_message, send_image_url
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
 from upload_image import upload_image
 import os
+
 def find_graph(word):
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
     photolimit = 3
@@ -57,13 +58,9 @@ class TocMachine(GraphMachine):
         print("entering sendback")
         reply_token = event.reply_token
         url = find_graph(event.message.text)
-        send_text_message(reply_token, url)
+        #send_text_message(reply_token,url)
+        send_image_url(reply_token,url)
         self.go_back()
-
-    """
-    def on_exit_search(self):
-        print("Leaving search")
-    """
 
     def on_exit_sendback(self):
         print("Leaving sendback")

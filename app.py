@@ -150,7 +150,13 @@ def webhook_handler():
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
     machine.get_graph().draw("state.png", prog="dot", format="png")
-    return send_file("state.png", root = './',mimetype="image/png")
+    #return send_file("state.png", root = './',mimetype="image/png")
+    fsm_url = upload_image("state.png")
+    image_message = ImageSendMessage(
+            original_content_url=fsm_url,
+            preview_image_url=fsm_url
+        )
+    line_bot_api.reply_message(event.reply_token, image_message)
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
