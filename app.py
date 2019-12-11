@@ -13,10 +13,6 @@ import urllib.request
 from bs4 import BeautifulSoup
 from upload_image import upload_image
 
-import requests
-import urllib.request
-from bs4 import BeautifulSoup
-from upload_image import upload_image
 #scrap
 def find_graph(word):
     url = 'https://www.google.com/search?q='+word+'&rlz=1C2CAFB_enTW617TW617&source=lnms&tbm=isch&sa=X&ved=0ahUKEwictOnTmYDcAhXGV7wKHX-OApwQ_AUICigB&biw=1128&bih=960'
@@ -48,13 +44,13 @@ def find_graph(word):
 load_dotenv()
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "search", "state2", "sendback"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "search",
+            "conditions": "is_going_to_search",
         },
         {
             "trigger": "advance",
@@ -62,7 +58,13 @@ machine = TocMachine(
             "dest": "state2",
             "conditions": "is_going_to_state2",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "search",
+            "dest": "sendback",
+            "conditions": "is_going_to_sendback",
+        },
+        {"trigger": "go_back", "source": ["search" ,"state2", "sendback"], "dest": "user"},
     ],
     initial="user",
     auto_transitions=False,
@@ -147,8 +149,8 @@ def webhook_handler():
 
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    return send_file("fsm.png", root = './',mimetype="image/png")
+    machine.get_graph().draw("state.png", prog="dot", format="png")
+    return send_file("state.png", root = './',mimetype="image/png")
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
