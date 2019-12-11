@@ -105,11 +105,6 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-        """
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text)
-        )
-        """
         url = find_graph(event.message.text)
         image_message = ImageSendMessage(
             original_content_url=url,
@@ -117,7 +112,6 @@ def callback():
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
-
     return "OK"
 
 
@@ -154,7 +148,7 @@ def webhook_handler():
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
     machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    return send_file("fsm.png", mimetype="image/png")
+    return send_file("fsm.png", root = './',mimetype="image/png")
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
