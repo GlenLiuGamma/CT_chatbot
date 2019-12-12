@@ -6,6 +6,9 @@
 
 一開始連上帳號後，輸入搜尋後，再輸入要尋找的關鍵字，line bot 會回傳透過google搜尋後得到的關於關鍵字的一張圖片
 
+#DEMO
+![img](./demo.png)
+
 ## Setup
 
 ### Prerequisite
